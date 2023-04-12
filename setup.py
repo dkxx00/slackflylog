@@ -9,12 +9,14 @@ PY2 = sys.version_info[0] == 2
 # 基於flylog, slack-client處理
 if PY2:
     require_pack = ['slackclient==1.3.2']
+    pack_version = '0.0.2'
 else:
     require_pack = ['slack_sdk==3.19.5']
+    pack_version = '1.0.2'
 
 setup(
     name='slackflylog',
-    version="0.0.1",
+    version=pack_version,
     author="dkxx00",
     author_email="hymanxx6@gmail.com",
     description="基于flylog的Slack日志发送",
