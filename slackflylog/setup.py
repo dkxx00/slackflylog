@@ -10,7 +10,7 @@ import sys
 PY2 = sys.version_info[0] == 2
 if PY2:
     REQUIRE_PACK = ['flylog','slackclient>=1.3.2']
-    __version__ = "1.0.6"
+    __version__ = "1.0.7"
 
 else:
     REQUIRE_PACK = ['flylog','slack_sdk>=3.19.5']
