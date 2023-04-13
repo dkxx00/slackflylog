@@ -52,8 +52,8 @@ class SlackFlyLogBackend(object):
 
     def _send_msg_to_slack(self, channel_id, slack_token, send_msg, title):
         """
-        :param bot_api: 机器人密钥
-        :param user_api: 频道link
+        :param channel_id: 接收渠道ID
+        :param slack_token: slack_token
         :param send_msg: 发送内容
         :return:
         """
