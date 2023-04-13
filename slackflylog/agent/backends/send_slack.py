@@ -67,7 +67,7 @@ class SlackFlyLogBackend(object):
             msg = msg.replace('%0a', '\n')
 
         # 增加@功能
-        msg = '{msg}\n @{cid}'.format(msg=msg, cid=channel_id)
+        msg = '{msg}\n<!channel>'.format(msg=msg)
 
 
         if PY2:
@@ -83,6 +83,6 @@ class SlackFlyLogBackend(object):
             # Python3 发送
             sc = SendClient(token=slack_token)
 
-            sc.chat_postMessage(channel=channel_id, text=text)
+            sc.chat_postMessage(channel=channel_id, text=msg)
 
         return True
