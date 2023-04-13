@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
+import sys
 
-__version__ = '0.1.0'
+PY2 = sys.version_info[0] == 2
+if PY2:
+    __version__ = "1.0.0"
+
+else:
+    __version__ = "3.0.0"
+
 
 from .api.log_handler import LogHandler
 from .api.client import Client

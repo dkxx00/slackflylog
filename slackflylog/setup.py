@@ -9,12 +9,12 @@ import sys
 
 PY2 = sys.version_info[0] == 2
 if PY2:
-    REQUIRE_PACK = ['slackclient==1.3.2']
-    __version__ = "0.0.8"
+    REQUIRE_PACK = ['flylog','slackclient>=1.3.2']
+    __version__ = "1.0.0"
 
 else:
-    REQUIRE_PACK = ['slack_sdk==3.19.5']
-    __version__ = "3.0.8"
+    REQUIRE_PACK = ['flylog','slack_sdk>=3.19.5']
+    __version__ = "3.0.0"
 
 
 
@@ -27,7 +27,7 @@ setup(
     description="基于flylog的Slack日志发送",
     license="MIT",
     packages=find_packages(),
-    install_requires =REQUIRE_PACK,
+    install_requires=REQUIRE_PACK,
     url="https://github.com/dkxx00/slackflylog"
 )
 
