@@ -38,7 +38,7 @@ def find_version(*file_paths):
 
 setup(
     name='slackflylog',
-    version=find_version('slackflylog', 'version.py'),
+    version=find_version('slackflylog', '__init__.py'),
     author="dkxx00",
     author_email="hymanxx6@gmail.com",
     description="基于flylog的Slack日志发送",
