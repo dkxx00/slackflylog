@@ -66,6 +66,10 @@ class SlackFlyLogBackend(object):
         if '%0a' in msg:
             msg = msg.replace('%0a', '\n')
 
+        # 增加@功能
+        msg = '{msg}\n @{cid}'.format(msg=msg, cid=channel)
+
+
         if PY2:
             sc = SendClient(slack_token)
             # 发送消息
