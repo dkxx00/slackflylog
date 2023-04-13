@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from urllib2 import urlopen
-
 import copy
 import random
-# import telegramlog.constants
 from ..log import logger
+import sys
 
-# logger = logging.getLogger(telegramlog.constants.AGENT_LOGGER_NAME)
-#
-# MULTIPLE_CHANNEL_BOT_API = '1944182514:AAFeRKSO6S3TBRmPBxTZTO6JX-xh6BAWE5Y'
-# MULTIPLE_CHANNEL_USER_API = '@server_error_log'
+PY2 = sys.version_info[0] == 2
+if PY2:
+    from slackclient import SlackClient as SendClient
+else:
+    from slack_sdk import WebClient as SendClient
 
 
-class TelegramBackend(object):
+class SlackFlyLogBackend(object):
     """
     发送tele
     """
@@ -41,9 +40,9 @@ class TelegramBackend(object):
 
             try:
                 logger.error("params %s", params)
-                bot_api = params['bot_api']
-                user_api = params['user_api']
-                self._send_msg_to_telegram(bot_api, user_api, content, title)
+                channel_id = params['channel_id']
+                slack_token = params['slack_token']
+                self._send_msg_to_slack(channel_id, slack_token, content, title)
                 return True
             except:
                 logger.error('exc occur. params: %s', params, exc_info=True)
@@ -51,22 +50,35 @@ class TelegramBackend(object):
             # 就是循环完了，也没发送成功
             return False
 
-    def _send_msg_to_telegram(self, bot_api, user_api, send_msg, title):
+    def _send_msg_to_slack(self, channel_id, slack_token, send_msg, title):
         """
         :param bot_api: 机器人密钥
         :param user_api: 频道link
         :param send_msg: 发送内容
         :return:
         """
-        import urllib
 
-        if not send_msg:
+
+        if not send_msg and not title:
             return False
 
-        full_content = '\n\n'.join([title, send_msg])
-        logger.error("full_content [[[[[[[%s]]]]]]]", urllib.quote(full_content))
+        msg = '\n\n'.join([title, send_msg])
+        if '%0a' in msg:
+            msg = msg.replace('%0a', '\n')
 
-        url = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}".format(bot_api, user_api, urllib.quote(full_content))
-        logger.error("url %s", url)
-        urlopen(url).close()
+        if PY2:
+            sc = SendClient(slack_token)
+            # 发送消息
+            sc.api_call(
+                "chat.postMessage",
+                channel=channel_id,
+                text=msg
+            )
+
+        else:
+            # Python3 发送
+            sc = SendClient(token=slack_token)
+
+            sc.chat_postMessage(channel=channel_id, text=text)
+
         return True

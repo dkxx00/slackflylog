@@ -3,10 +3,10 @@ import sys
 
 PY2 = sys.version_info[0] == 2
 if PY2:
-    __version__ = "1.0.0"
+    __version__ = "1.0.4"
 
 else:
-    __version__ = "3.0.0"
+    __version__ = "3.0.4"
 
 
 from .api.log_handler import LogHandler

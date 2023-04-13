@@ -8,13 +8,21 @@
 不使用 gevent，因为测试了 gevent 对 smtplib 似乎没法异步，还是会阻塞
 """
 
+
+import sys
 import json
-import SocketServer
 from thread import start_new_thread
 from collections import defaultdict
-
 from .utils import import_string
 from .log import logger
+
+PY2 = sys.version_info[0] == 2
+if PY2:
+    import SocketServer
+
+else:
+    import socketserver as SocketServer
+
 
 
 class Agent(object):
