@@ -11,7 +11,7 @@
 
 import sys
 import json
-from thread import start_new_thread
+
 from collections import defaultdict
 from .utils import import_string
 from .log import logger
@@ -19,9 +19,11 @@ from .log import logger
 PY2 = sys.version_info[0] == 2
 if PY2:
     import SocketServer
+    from thread import start_new_thread
 
 else:
     import socketserver as SocketServer
+    from _thread import start_new_thread
 
 
 
