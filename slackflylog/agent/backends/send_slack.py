@@ -66,7 +66,7 @@ class SlackFlyLogBackend(object):
         if '%0a' in msg:
             msg = msg.replace('%0a', '\n')
 
-        # 增加@功能
+        # 增加@功能 @渠道
         msg = '{msg}\n<!channel>'.format(msg=msg)
 
 
@@ -86,3 +86,4 @@ class SlackFlyLogBackend(object):
             sc.chat_postMessage(channel=channel_id, text=msg)
 
         return True
+
